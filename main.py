@@ -196,6 +196,10 @@ if __name__ == '__main__':
     args.texture_dir = os.path.join(args.data, args.texture_dir)
     args.color_dir = os.path.join(args.data, args.color_dir)
     args.save_dir = os.path.join(args.data, args.save_dir)
+    try:
+        os.makedirs(args.save_dir)
+    except:
+        pass
     # if args.mode == 'train':
     #     train(args)
     # elif args.mode == 'test':
