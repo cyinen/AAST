@@ -5,6 +5,8 @@ from torch.utils import data
 import numpy as np
 from skimage.color import rgb2lab
 import torch
+import os
+
 
 Image.MAX_IMAGE_PIXELS = None  # Disable DecompressionBombError
 # Disable OSError: image file is truncated
@@ -32,7 +34,10 @@ class TrainDataset(data.Dataset):
     def __init__(self, root, img_size, gray_only = False):
         super(TrainDataset, self).__init__()
         self.root = root
-        self.paths = list(Path(self.root).glob('*'))
+        # self.paths = list(Path(self.root).glob('*'))
+        f = open(root, 'r')
+        self.paths = [os.path.join(root.split("/")[-2], line ) for line in f.read().splitlines()]
+        f.close()
         self.img_size = img_size
         self.gray_only = gray_only
 
@@ -123,3 +128,10 @@ class TestDataset(data.Dataset):
     def name(self):
         return 'TestDataset'
 
+def sample_data(loader, sampler):
+    epoch = 0
+    while True:
+        epoch += 1
+        sampler.set_epoch(epoch)
+        for batch in loader:
+            yield batch

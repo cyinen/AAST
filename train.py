@@ -50,7 +50,7 @@ def train(args):
     network = Net(args)
     network.train()
     network.to(device)
-
+    
     # Training options
 
     opt_L = torch.optim.Adam(network.L_path.parameters(), lr=args.lr)
