@@ -36,7 +36,7 @@ class TrainDataset(data.Dataset):
         self.root = root
         # self.paths = list(Path(self.root).glob('*'))
         f = open(root, 'r')
-        self.paths = [os.path.join(root.split("/")[:-2], line ) for line in f.read().splitlines()]
+        self.paths = [os.path.join(os.path.dirname(root), line ) for line in f.read().splitlines()]
         f.close()
         self.img_size = img_size
         self.gray_only = gray_only
